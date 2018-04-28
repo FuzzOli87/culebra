@@ -2,8 +2,7 @@
   "name": "culebra",
   "author": "Daniel Olivares",
   "version": "0.0.0-semantically-released",
-  "description":
-    "A command-line web crawler that outputs a nice JSON output of the site map",
+  "description": "A command-line web crawler that outputs a nice JSON output of the site map",
   "bin": "dist/index.js",
   "scripts": {
     "start": "nps",
@@ -24,7 +23,9 @@
     "node": ">=8.0.0",
     "npm": ">=3"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
@@ -42,9 +43,17 @@
         "statements": 85
       }
     },
-    "testMatch": ["**/src/**/?(*.)test.js?(x)"],
-    "modulePathIgnorePatterns": ["dist/*"],
-    "coveragePathIgnorePatterns": ["/node_modules/", "__helpers__/", "/dist/"]
+    "testMatch": [
+      "**/src/**/?(*.)test.js?(x)"
+    ],
+    "modulePathIgnorePatterns": [
+      "dist/*"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "__helpers__/",
+      "/dist/"
+    ]
   },
   "devDependencies": {
     "@telerik/semantic-prerelease": "^1.2.1",
