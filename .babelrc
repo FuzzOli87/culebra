@@ -1,0 +1,15 @@
+
+{
+  "sourceMaps": "inline",
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": 8
+      },
+      "useBuiltIns": true
+    }]
+  ],
+  "plugins": [
+    "transform-strict-mode"
+  ]
+}

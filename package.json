@@ -1,0 +1,96 @@
+{
+  "name": "culebra",
+  "author": "Daniel Olivares",
+  "version": "0.0.0-semantically-released",
+  "description": "A command-line web crawler that outputs a nice JSON output of the site map",
+  "bin": "dist/index.js",
+  "scripts": {
+    "start": "nps",
+    "commitmsg": "opt --in commit-msg --exec \"validate-commit-msg\"",
+    "precommit": "opt --in pre-commit --exec \"npm start validate\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@personal:FuzzOli87/culebra.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FuzzOli87/culebra/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=3"
+  },
+  "files": [
+    "dist"
+  ],
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 85,
+        "functions": 85,
+        "lines": 85,
+        "statements": 85
+      }
+    },
+    "testMatch": [
+      "**/src/**/?(*.)test.js?(x)"
+    ],
+    "modulePathIgnorePatterns": [
+      "dist/*"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "__helpers__/",
+      "/dist/"
+    ]
+  },
+  "devDependencies": {
+    "@telerik/semantic-prerelease": "^1.2.1",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.2",
+    "babel-jest": "^22.4.3",
+    "babel-plugin-transform-strict-mode": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "codecov": "^3.0.0",
+    "commitizen": "^2.9.6",
+    "condition-codefresh": "^1.0.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "documentation": "^6.3.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jest": "^21.3.2",
+    "get-stream": "^3.0.0",
+    "hock": "^1.3.2",
+    "husky": "^0.14.3",
+    "jest": "^22.4.3",
+    "leasot": "^6.2.1",
+    "nock": "^9.2.5",
+    "nps": "^5.7.1",
+    "nps-utils": "^1.5.0",
+    "opt-cli": "^1.6.0",
+    "prettier-eslint-cli": "4.7.1",
+    "rimraf": "^2.6.2",
+    "semantic-release": "^15.1.7",
+    "strip-indent": "^2.0.0",
+    "validate-commit-msg": "^2.14.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "meow": "^5.0.0",
+    "request": "^2.85.0",
+    "request-promise-native": "^1.0.5"
+  }
+}

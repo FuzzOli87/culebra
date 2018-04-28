@@ -1,0 +1,52 @@
+version: '1.0'
+steps:
+  BuildDockerImage:
+    title: Building Docker Image
+    type: build
+    image_name: culebra
+    dockerfile: Dockerfile
+  RunUnitTests:
+    title: Running Unit Tests
+    image: ${{BuildDockerImage}}
+    working_directory: /home/app
+    commands:
+      - npm start validate
+      - npm start report-coverage
+    on_success:
+      metadata:
+        set:
+          - '${{BuildDockerImage.imageId}}':
+              - CF_QUALITY: true
+    on_fail:
+      metadata:
+        set:
+          - '${{BuildDockerImage.imageId}}':
+              - CF_QUALITY: false
+  RunIntegrationTests:
+    title: Running Integration Tests
+    description: Running integration tests 
+    image: ${{BuildDockerImage}}
+    working_directory: /home/app
+    commands:
+      - npm start test.integrationCi
+      - npm start report-coverage
+    on_success:
+      metadata:
+        set:
+          - '${{BuildDockerImage.imageId}}':
+              - CF_QUALITY: true
+    on_fail:
+      metadata:
+        set:
+          - '${{BuildDockerImage.imageId}}':
+              - CF_QUALITY: false
+  PublishModule:
+    title: Publishing my module
+    image: ${{BuildDockerImage}}
+    working_directory: /home/app
+    when:
+      branch:
+        only: [ master ]
+    commands:
+      - npm start build
+      - npm start release

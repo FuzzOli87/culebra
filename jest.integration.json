@@ -1,0 +1,21 @@
+{
+  "verbose": true,
+  "collectCoverage": true,
+  "testEnvironment": "node",
+  "coverageThreshold": {
+    "global": {
+      "branches": 85,
+      "functions": 85,
+      "lines": 85,
+      "statements": 85
+    }
+  },
+  "testMatch": ["**/__tests__/*.integration.test.js"],
+  "modulePathIgnorePatterns": ["dist/*"],
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "/dist/",
+    "/__fixtures__/",
+    "__helpers__"
+  ]
+}
