@@ -25,6 +25,7 @@ steps:
   RunIntegrationTests:
     title: Running Integration Tests
     description: Running integration tests 
+    image: ${{BuildDockerImage}}
     commands:
       - npm start integrationCi
       - npm start report-coverage
