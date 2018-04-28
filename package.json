@@ -25,10 +25,6 @@
     "npm": ">=3"
   },
   "files": ["dist"],
-  "release": {
-    "verifyConditions": "condition-codefresh",
-    "debug": false
-  },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"

@@ -15,7 +15,7 @@ module.exports = {
       default: 'jest --coverage',
       watch: 'jest --coverage --watch',
       integration: 'jest --coverage --config jest.integration.json --watch',
-      integrationCi: 'jest --coverage --config ./jest.integration.json'
+      integrationCi: 'jest --coverage --config jest.integration.json'
     },
     build: {
       description: 'delete the dist directory and run babel to build the files',
@@ -34,7 +34,7 @@ module.exports = {
     },
     release: {
       description: 'We automate releases with semantic-release. This should only be run on travis',
-      script: series('semantic-release pre', 'npm publish', 'semantic-release post')
+      script: 'semantic-release'
     },
     validate: {
       description:
@@ -44,10 +44,6 @@ module.exports = {
     format: {
       description: 'Formats everything with prettier-eslint',
       script: 'prettier-eslint "src/**/*.js" --write'
-    },
-    docs: {
-      description: 'Generate documentation',
-      script: 'documentationjs'
     }
   },
   options: {
