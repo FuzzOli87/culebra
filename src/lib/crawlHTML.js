@@ -1,47 +1,59 @@
-import request from 'request-promise-native';
 import cheerio from 'cheerio';
 import { resolve } from 'url';
 
-function crawlHTML(htmlToCrawl, resolveToUrl) {
+export default function crawlHTML(htmlToCrawl, resolveToUrl) {
   const $ = cheerio.load(htmlToCrawl);
 
   const internalLinks = [];
   const externalLinks = [];
   const staticContentLinks = [];
 
+  // Get relative links(those that don't start with http or https)
   $("a:not([href^='http'])").each(function findRelativeLinks() {
-    const href = resolve(resolveToUrl, $(this).attr('href'));
+    const href = $(this).attr('href');
+    // Resolve to full address using the sub-url
+    const fullLink = resolve(resolveToUrl, href);
 
     const extensionBegins = href.lastIndexOf('.');
     const hasExtension = extensionBegins >= 0;
 
+    // If this url has an extension
     if (hasExtension) {
       const extension = href.substr(extensionBegins).toLowerCase();
 
+      // If it is of HTML(could be a link to a JPEG or something), add it to internal links
       if (extension === '.html') {
-        internalLinks.push(href);
+        internalLinks.push(fullLink);
 
         return;
       }
 
-      staticContentLinks.push(href);
+      // Otherwise, assume that its something static
+      staticContentLinks.push(fullLink);
 
       return;
     }
 
-    internalLinks.push(href);
+    /*
+     * If it has no extension, might be some page configured to be fetched by some path rewrite,
+     * lets try it.
+     */
+    internalLinks.push(fullLink);
   });
 
+  // Get links that start with http/https, these are external
   $("a[href^='http']").each(function findExternalLinks() {
     const href = resolve(resolveToUrl, $(this).attr('href'));
     externalLinks.push(href);
   });
 
+  // Get static content which we define as javascript files and image files
   $("img, script[type='text/javascript']").each(function findImagesOrJavascripts() {
     const src = resolve(resolveToUrl, $(this).attr('src'));
     staticContentLinks.push(src);
   });
 
+  // Get static content that are stylesheet links
   $("link[rel='stylesheet']").each(function findStyleSheets() {
     const href = resolve(resolveToUrl, $(this).attr('href'));
     staticContentLinks.push(href);
@@ -52,24 +64,4 @@ function crawlHTML(htmlToCrawl, resolveToUrl) {
     externalLinks,
     staticContentLinks
   };
-}
-
-export default async function culebra(urlToCrawl) {
-  const resultTracker = [];
-
-  async function requestAndCrawl(url) {
-    const page = await request(url);
-
-    const crawlResult = crawlHTML(page, url);
-
-    const { internalLinks } = crawlResult;
-
-    await Promise.all(internalLinks.map(link => requestAndCrawl(link)));
-
-    resultTracker.push(Object.assign({ pageCrawled: url }, crawlResult));
-  }
-
-  await requestAndCrawl(urlToCrawl);
-
-  return resultTracker;
 }
