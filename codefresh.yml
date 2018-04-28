@@ -28,7 +28,7 @@ steps:
     image: ${{BuildDockerImage}}
     working_directory: /home/app
     commands:
-      - npm start integrationCi
+      - npm start test.integrationCi
       - npm start report-coverage
     on_success:
       metadata:
