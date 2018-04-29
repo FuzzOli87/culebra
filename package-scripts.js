@@ -14,7 +14,8 @@ module.exports = {
     test: {
       default: 'jest --coverage',
       watch: 'jest --coverage --watch',
-      integration: 'jest --coverage --config jest.integration.json --watch',
+      integration: 'jest --coverage --config jest.integration.json',
+      integrationWatch: 'jest --coverage --config jest.integration.json --watch',
       integrationCi: 'jest --coverage --config jest.integration.json'
     },
     build: {
