@@ -1,3 +1,6 @@
+[![Codefresh build status](https://g.codefresh.io/api/badges/build?repoOwner=FuzzOli87&repoName=culebra&branch=master&pipelineName=culebra&accountName=fuzzoli87&type=cf-1)](https://g.codefresh.io/repositories/FuzzOli87/culebra/builds?filter=trigger:build;branch:master;service:5ae502bc2481270001f6c4ea~culebra)
+[![codecov](https://codecov.io/gh/FuzzOli87/culebra/branch/master/graph/badge.svg)](https://codecov.io/gh/FuzzOli87/culebra)
+
 # culebra
 
 A simple web crawler that only looks at it's own domain and outputs a JSON structure showing you the results!
@@ -108,6 +111,8 @@ Unit tests and integration tests are a must for any library that will be consume
 For coverage, I feel that 85% is a proper limit. It is very easy to write bad code if we make reaching 100% a goal always. From experience, code can become more complex just to test a line or two. However, I always strive for 100% if possible.
 
 For libraries, I like to have a standard set of linting rules, coverage rules and even commit rules. This helps keep a project readable and easily maintainable. Following TDD also helps make changes without fear of breaking the world.
+
+It's also important to set-up automated testing and if it's a library, release cycle using semantic versioning. Every branch should generate coverage reports and test reports and be working with Github to have this information at hand before doing PRs or changes to the code. Automation makes things easier to judge and keep working correctly. You can see my CI/CD pipeline using the badges at the top!
 
 ### IF I HAD MORE TIME...
 
