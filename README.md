@@ -21,6 +21,12 @@ Use the package manager for your distro:
 
 1.  Run the following command: `pacman -S nodejs-lts-carbon`
 
+## INSTALLING
+
+Run `npm install culebra -g`
+
+Then run: `culebra` for the help manual!
+
 ## CONTRIBUTING
 
 These are the steps to follow if you would like to make a contribution or just want to play around with this code locally.
@@ -52,7 +58,7 @@ This will transpile any Javascript to the Node version dictated by the environme
 
 1.  Run `npm start build`
 
-### To execute
+### TO RUN
 
 After you have built the application you can use it by running:
 
@@ -61,13 +67,21 @@ After you have built the application you can use it by running:
 If you don't want to build it, you can use babel-node to execute the untranspiled code by running:
 `node_modules/.bin/babel-node src/index.js`
 
-### INSTALLING
+### TO RUN AGAINST LOCAL SERVER
 
-This module was published as a CLI app, to install it, simply run
-`npm install culebra -g`
+I provided a quick mock server to run the tool against. You'll have to restart it for each run.
 
-And culebra should now be available to use by doing:
-`culebra urlToCrawl`
+1.  Run `npm start startLocalServer`
+2.  Run after building, run:
+    `./dist/index.js http://localhost:3004`
+    or if you have it installed globally:
+    `culebra http://localhost:3004`
+
+### TO RUN AGAINST A "REAL" SITE
+
+Run `culebra https://www.betrottweilers.com/`
+
+Disclaimer: Many sites that I tried took a while to run. Depending on system resources, this might be a problem. See TRADE-OFFS and IF I HAD MORE TIME...
 
 ### Trade-Offs
 
@@ -77,6 +91,7 @@ The trade-offs made were mostly related to length of time available to work on t
 2.  Websites crawled are PERFECT with no dead links.
 3.  Websites crawled serve HTML and can be obtained through GET requests. Applications build with React.js for example might not serve the full HTML.
 4.  The feature set is SIMPLE. Just a URL to crawl.
+5.  Test way more featured sites.
 
 These trade-offs were made to keep the scope of the task within reach but still deliver the core functionality.
 
@@ -104,3 +119,5 @@ If I had more time, I would:
 4.  Make the parsing more robust. I'm 100% certain that there are MANY different cases that I did not account for when parsing HTML for internal, external and static content links. A more careful consideration of such scenarios is appropriate.
 5.  Add a queue mechanism. The ability to set a limit on how many requests are made will bode well for performance and for users.
 6.  Add some visual aids. A log of what the application is loading, a loading bar or something like that can be useful to let a user know that the process is still running and not hanging. Right now it's mostly a run, wait and see for large web pages.
+7.  Refactor some implementation code. I would break down some of the code that fetches and resolves the URLs to test more scenarios.
+8.  Test against WAY more sites and create e2e tests for more broad testing. I ran it against: https://www.betrottweilers.com/ Other sites I tried were www.google.com, www.reddit.com but the process took a long time.
