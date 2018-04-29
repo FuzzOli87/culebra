@@ -11,6 +11,9 @@ module.exports = {
       description: 'This uses commitizen to help us generate well formatted commit messages',
       script: 'git-cz'
     },
+    startLocalServer: {
+      default: 'babel-node scripts/startMockServer.js'
+    },
     test: {
       default: 'jest --coverage',
       watch: 'jest --coverage --watch',

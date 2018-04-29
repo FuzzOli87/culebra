@@ -7,11 +7,17 @@ import crawlHTML from './lib/crawlHTML';
 */
 export default async function culebra(urlToCrawl) {
   const resultTracker = [];
+  const visitedLinks = [];
 
   // We are going to manage state within this module for simplicity
   async function requestAndCrawl(url) {
+    if (visitedLinks.includes(url)) {
+      return;
+    }
+
     const page = await request(url);
 
+    visitedLinks.push(url);
     const crawlResult = crawlHTML(page, url);
 
     const { internalLinks } = crawlResult;
