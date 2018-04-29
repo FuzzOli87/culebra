@@ -89,6 +89,7 @@ const urlToCrawl = cli.input[0];
     return cli.showHelp();
   }
 
+  console.log(urlToCrawl);
   const resultOfCrawl = await culebra(urlToCrawl);
 
   return console.log(JSON.stringify(resultOfCrawl, null, 4));

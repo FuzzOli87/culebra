@@ -11,6 +11,11 @@ export default function crawlHTML(htmlToCrawl, resolveToUrl) {
   // Get relative links(those that don't start with http or https)
   $("a:not([href^='http'])").each(function findRelativeLinks() {
     const href = $(this).attr('href');
+
+    if (!href) {
+      return;
+    }
+
     // Resolve to full address using the sub-url
     const fullLink = resolve(resolveToUrl, href);
 
@@ -43,20 +48,30 @@ export default function crawlHTML(htmlToCrawl, resolveToUrl) {
 
   // Get links that start with http/https, these are external
   $("a[href^='http']").each(function findExternalLinks() {
-    const href = resolve(resolveToUrl, $(this).attr('href'));
-    externalLinks.push(href);
+    const href = $(this).attr('href');
+    if (href) {
+      const fullLink = resolve(resolveToUrl, href);
+      externalLinks.push(fullLink);
+    }
   });
 
   // Get static content which we define as javascript files and image files
   $("img, script[type='text/javascript']").each(function findImagesOrJavascripts() {
-    const src = resolve(resolveToUrl, $(this).attr('src'));
-    staticContentLinks.push(src);
+    const src = $(this).attr('src');
+
+    if (src) {
+      const fullLink = resolve(resolveToUrl, src);
+      staticContentLinks.push(fullLink);
+    }
   });
 
   // Get static content that are stylesheet links
   $("link[rel='stylesheet']").each(function findStyleSheets() {
-    const href = resolve(resolveToUrl, $(this).attr('href'));
-    staticContentLinks.push(href);
+    const href = $(this).attr('href');
+    if (href) {
+      const fullLink = resolve(resolveToUrl, href);
+      staticContentLinks.push(fullLink);
+    }
   });
 
   return {

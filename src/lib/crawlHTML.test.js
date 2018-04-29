@@ -5,6 +5,7 @@ import crawl from './crawlHTML';
 const fullTestFile = fs.readFileSync(path.resolve(__dirname, '../../__fixtures__/crawl-html/full.html'));
 const internalNoExtFile = fs.readFileSync(path.resolve(__dirname, '../../__fixtures__/crawl-html/internal-no-extension.html'));
 const nothingFile = fs.readFileSync(path.resolve(__dirname, '../../__fixtures__/crawl-html/nothing.html'));
+const noPropFile = fs.readFileSync(path.resolve(__dirname, '../../__fixtures__/crawl-html/no-props.html'));
 const urlToResolveLinksTo = 'http://www.crawlhtmltest.com';
 
 describe('crawlHTML', () => {
@@ -45,6 +46,17 @@ describe('crawlHTML', () => {
       internalLinks: ['http://www.crawlhtmltest.com/noextension'],
       externalLinks: [],
       staticContentLinks: []
+    };
+
+    expect(crawlResult).toEqual(expectedResult);
+  });
+
+  it('should ignore any link that does not have the necessary html property(src,href)', () => {
+    const crawlResult = crawl(noPropFile, urlToResolveLinksTo);
+    const expectedResult = {
+      internalLinks: ['http://www.crawlhtmltest.com/cats/cats.html'],
+      externalLinks: [],
+      staticContentLinks: ['http://www.crawlhtmltest.com/spider.jpg']
     };
 
     expect(crawlResult).toEqual(expectedResult);
