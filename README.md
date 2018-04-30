@@ -126,3 +126,4 @@ If I had more time, I would:
 6.  Add some visual aids. A log of what the application is loading, a loading bar or something like that can be useful to let a user know that the process is still running and not hanging. Right now it's mostly a run, wait and see for large web pages.
 7.  Refactor some implementation code. I would break down some of the code that fetches and resolves the URLs to test more scenarios.
 8.  Test against WAY more sites and create e2e tests for more broad testing. I ran it against: https://www.betrottweilers.com/ Other sites I tried were www.google.com, www.reddit.com but the process took a long time.
+9.  Rewrite some of the flow of the code to take advantage of multi-cpu environments.
